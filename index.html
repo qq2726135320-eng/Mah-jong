@@ -19,22 +19,11 @@
   <div id="mask">请横屏体验麻将游戏</div>
 
   <div id="game">
-    🎴 麻将页面已成功加载
+    <div id="table">牌桌</div>
   </div>
-
-  <script>
-    function check() {
-      const mask = document.getElementById("mask");
-      if (window.innerHeight > window.innerWidth) {
-        mask.style.display = "flex";
-      } else {
-        mask.style.display = "none";
-      }
-    }
-    window.addEventListener("resize", check);
-    window.addEventListener("load", check);
-  </script>
 </body>
+
 </html>
+
 
 
