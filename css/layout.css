@@ -1,107 +1,115 @@
 /* ===== 全局 ===== */
-html, body {
+* {
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
-  background: #0b4d3c; /* 麻将桌绿 */
-  color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
-               "Helvetica Neue", Arial, sans-serif;
-  overflow: hidden;
-}
-
-/* ===== 游戏容器 ===== */
-#game {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-/* ===== 横屏遮罩 ===== */
-#mask {
-  position: fixed;
-  inset: 0;
-  background: black;
-  color: white;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  z-index: 100;
-}
-
-/* ===== 牌桌 ===== */
-#table {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  height: 60%;
-  background: rgba(0, 0, 0, 0.25);
-  border-radius: 18px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 28px;
-}
-
-/* ===== 玩家 ===== */
-.player {
-  position: absolute;
-  font-size: 18px;
-  opacity: 0.9;
+  box-sizing: border-box;
   user-select: none;
 }
 
-/* 上下左右 */
-.top {
-  top: 4%;
-  left: 50%;
-  transform: translateX(-50%);
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #0b5f3c;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
 }
 
-.bottom {
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+#app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.left {
-  left: 4%;
+/* ===== 牌桌 ===== */
+.table {
+  position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  width: 40vmin;
+  height: 40vmin;
+  transform: translate(-50%, -50%);
+  background: #136f4a;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 6px #0a4f33;
 }
 
-.right {
-  right: 4%;
-  top: 50%;
-  transform: translateY(-50%);
+.table-inner {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #1b8a60, #0f5c3d);
+  border-radius: 8px;
 }
 
-/* ===== 手牌 ===== */
-.hand {
+/* ===== 玩家通用 ===== */
+.player {
+  position: absolute;
   display: flex;
-  gap: 6px;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ===== 单张麻将牌 ===== */
+/* ===== 位置 ===== */
+.player.top {
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.player.left {
+  left: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.player.right {
+  right: 2%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.player.self {
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ===== 牌容器 ===== */
+.tiles {
+  display: flex;
+  gap: 4px;
+}
+
+.tiles.vertical {
+  flex-direction: column;
+}
+
+.tiles.horizontal {
+  flex-direction: row;
+}
+
+/* ===== 单张牌 ===== */
 .tile {
   width: 40px;
   height: 56px;
-  background: #f8f8f8;
-  border-radius: 6px;
-  color: #333;
-  font-size: 18px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 56px;
+  font-size: 14px;
   font-weight: 600;
+  color: #333;
+}
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* 牌背 */
+.tile.back {
+  background: linear-gradient(135deg, #cfa25a, #b88a3c);
+  border: none;
+}
 
-  box-shadow: 0 2px 4px rgba(0,0,0,0.35);
+/* 自己的牌稍大 */
+.player.self .tile {
+  width: 44px;
+  height: 62px;
+  line-height: 62px;
 }
