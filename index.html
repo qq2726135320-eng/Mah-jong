@@ -1,55 +1,212 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <title>Sichuan Mahjong</title>
-
-  <!-- iOS Web App -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
-  <!-- 强制横屏 -->
-  <meta name="viewport"
-        content="width=device-height,height=device-width,initial-scale=1.0,user-scalable=no">
-
-  <link rel="stylesheet" href="./css/layout.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>欢乐麻将</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-<div id="app">
+    <div id="app">
+        <!-- 顶部状态栏 -->
+        <div id="status-bar">
+            <div class="status-left">
+                <span id="room-id">房间号: 888888</span>
+                <span id="game-round">第1局</span>
+            </div>
+            <div class="status-right">
+                <span id="timer">00:00</span>
+                <i class="fas fa-wifi"></i>
+            </div>
+        </div>
 
-  <!-- 状态提示 -->
-  <div id="status">轮到你出牌</div>
+        <!-- 玩家区域 -->
+        <div class="player top" id="player-top">
+            <div class="player-info">
+                <div class="avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=player1" alt="玩家头像">
+                    <span class="player-name">玩家A</span>
+                </div>
+                <div class="player-score">+0</div>
+            </div>
+            <div class="tiles back-tiles" id="top-hand"></div>
+            <div class="played-tiles" id="top-played"></div>
+        </div>
 
-  <!-- 上家 -->
-  <div class="player top"><div class="tiles vertical back-tiles"></div></div>
+        <div class="player left" id="player-left">
+            <div class="player-info">
+                <div class="avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=player2" alt="玩家头像">
+                    <span class="player-name">玩家B</span>
+                </div>
+                <div class="player-score">+0</div>
+            </div>
+            <div class="tiles vertical back-tiles" id="left-hand"></div>
+            <div class="played-tiles vertical" id="left-played"></div>
+        </div>
 
-  <!-- 左家 -->
-  <div class="player left"><div class="tiles vertical back-tiles"></div></div>
+        <div class="player right" id="player-right">
+            <div class="player-info">
+                <div class="avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=player3" alt="玩家头像">
+                    <span class="player-name">玩家C</span>
+                </div>
+                <div class="player-score">+0</div>
+            </div>
+            <div class="tiles vertical back-tiles" id="right-hand"></div>
+            <div class="played-tiles vertical" id="right-played"></div>
+        </div>
 
-  <!-- 右家 -->
-  <div class="player right"><div class="tiles vertical back-tiles"></div></div>
+        <div class="player self" id="player-self">
+            <div class="player-info">
+                <div class="avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=self" alt="玩家头像">
+                    <span class="player-name">我</span>
+                    <span class="diamond-count"><i class="fas fa-gem"></i> 1000</span>
+                </div>
+                <div class="player-score">+0</div>
+            </div>
+            <div class="tiles" id="my-hand"></div>
+            <div class="played-tiles" id="my-played"></div>
+        </div>
 
-  <!-- 牌桌 -->
-  <div id="table"></div>
+        <!-- 牌桌 -->
+        <div id="table">
+            <div id="deck-count">剩余: 84张</div>
+            <div id="current-turn"></div>
+        </div>
 
-  <!-- 自己 -->
-  <div class="player self">
-    <div class="tiles horizontal" id="my-hand"></div>
-  </div>
+        <!-- 状态提示 -->
+        <div id="status">准备开始游戏</div>
 
-  <!-- 定缺 -->
-  <div id="dingque">
-    <div class="panel">
-      <h3>请选择定缺</h3>
-      <button data-type="万">万</button>
-      <button data-type="条">条</button>
-      <button data-type="筒">筒</button>
+        <!-- 操作按钮区域 -->
+        <div id="action-bar">
+            <button id="btn-chi" class="action-btn" disabled>
+                <i class="fas fa-exchange-alt"></i> 吃
+            </button>
+            <button id="btn-peng" class="action-btn" disabled>
+                <i class="fas fa-hand-rock"></i> 碰
+            </button>
+            <button id="btn-gang" class="action-btn" disabled>
+                <i class="fas fa-cube"></i> 杠
+            </button>
+            <button id="btn-hu" class="action-btn" disabled>
+                <i class="fas fa-trophy"></i> 胡
+            </button>
+            <button id="btn-pass" class="action-btn" disabled>
+                <i class="fas fa-times"></i> 过
+            </button>
+        </div>
+
+        <!-- 底部控制栏 -->
+        <div id="control-bar">
+            <button id="btn-sort" class="control-btn">
+                <i class="fas fa-sort-amount-down"></i> 理牌
+            </button>
+            <button id="btn-voice" class="control-btn">
+                <i class="fas fa-volume-up"></i> 语音
+            </button>
+            <button id="btn-settings" class="control-btn">
+                <i class="fas fa-cog"></i> 设置
+            </button>
+            <button id="btn-emojis" class="control-btn">
+                <i class="fas fa-smile"></i> 表情
+            </button>
+        </div>
+
+        <!-- 定缺界面 -->
+        <div id="dingque">
+            <div class="panel">
+                <h3>请选择定缺花色</h3>
+                <div class="dingque-options">
+                    <button class="dingque-btn" data-type="万">
+                        <div class="tile-icon">万</div>
+                        <span>万子</span>
+                    </button>
+                    <button class="dingque-btn" data-type="条">
+                        <div class="tile-icon">条</div>
+                        <span>条子</span>
+                    </button>
+                    <button class="dingque-btn" data-type="筒">
+                        <div class="tile-icon">筒</div>
+                        <span>筒子</span>
+                    </button>
+                </div>
+                <p class="hint">定缺后，该花色牌不能保留在手牌中</p>
+            </div>
+        </div>
+
+        <!-- 获胜弹窗 -->
+        <div id="win-modal" class="modal">
+            <div class="modal-content win">
+                <h2><i class="fas fa-trophy"></i> 胡牌!</h2>
+                <div class="winner-info">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=self" alt="玩家头像">
+                    <h3>我</h3>
+                    <div class="score-change">+24 <i class="fas fa-coins"></i></div>
+                </div>
+                <div class="win-details">
+                    <p>番数: 8番</p>
+                    <p>牌型: 清一色</p>
+                </div>
+                <button id="btn-next" class="btn-primary">下一局</button>
+            </div>
+        </div>
+
+        <!-- 设置菜单 -->
+        <div id="settings-menu" class="modal">
+            <div class="modal-content">
+                <h2><i class="fas fa-cog"></i> 游戏设置</h2>
+                <div class="setting-item">
+                    <label>音效</label>
+                    <div class="switch">
+                        <input type="checkbox" id="sound-switch" checked>
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label>震动反馈</label>
+                    <div class="switch">
+                        <input type="checkbox" id="vibration-switch" checked>
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label>自动理牌</label>
+                    <div class="switch">
+                        <input type="checkbox" id="auto-sort-switch" checked>
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <button id="btn-close-settings" class="btn-secondary">关闭</button>
+            </div>
+        </div>
+
+        <!-- 表情面板 -->
+        <div id="emoji-panel" class="modal">
+            <div class="modal-content">
+                <h2><i class="fas fa-smile"></i> 发送表情</h2>
+                <div class="emoji-grid">
+                    <button class="emoji-btn">😊</button>
+                    <button class="emoji-btn">😂</button>
+                    <button class="emoji-btn">👍</button>
+                    <button class="emoji-btn">👏</button>
+                    <button class="emoji-btn">🎉</button>
+                    <button class="emoji-btn">💪</button>
+                    <button class="emoji-btn">🙏</button>
+                    <button class="emoji-btn">😎</button>
+                </div>
+                <button id="btn-close-emoji" class="btn-secondary">关闭</button>
+            </div>
+        </div>
     </div>
-  </div>
 
-</div>
+    <!-- 音频元素 -->
+    <audio id="sound-draw" src="https://assets.mixkit.co/sfx/preview/mixkit-card-game-draw-976.mp3"></audio>
+    <audio id="sound-play" src="https://assets.mixkit.co/sfx/preview/mixkit-cards-draw-976.mp3"></audio>
+    <audio id="sound-win" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3"></audio>
 
-<script src="./js/game.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
