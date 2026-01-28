@@ -8,49 +8,66 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- 横屏适配 -->
+  <!-- 强制横屏 -->
   <meta name="viewport"
         content="width=device-height,height=device-width,initial-scale=1.0,user-scalable=no">
 
-  <!-- 样式 -->
   <link rel="stylesheet" href="./css/layout.css">
 </head>
 
 <body>
-  <!-- 横屏遮罩（暂未启用） -->
-  <div id="mask">请横屏体验麻将游戏</div>
-
-  <!-- 游戏区域 -->
-  <div id="game">
+  <div id="app">
 
     <!-- 上家 -->
-    <div class="player top">上家</div>
+    <div class="player top">
+      <div class="tiles vertical">
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+      </div>
+    </div>
 
     <!-- 左家 -->
-    <div class="player left">左家</div>
-
-    <!-- 牌桌 -->
-    <div id="table">牌桌</div>
+    <div class="player left">
+      <div class="tiles vertical">
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+      </div>
+    </div>
 
     <!-- 右家 -->
-    <div class="player right">右家</div>
+    <div class="player right">
+      <div class="tiles vertical">
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+        <div class="tile back"></div>
+      </div>
+    </div>
 
-    <!-- 我（手牌） -->
-    <div class="player bottom">
-      <div class="hand">
-        <div class="tile">1W</div>
-        <div class="tile">2W</div>
-        <div class="tile">3W</div>
-        <div class="tile">4W</div>
-        <div class="tile">5W</div>
-        <div class="tile">6W</div>
-        <div class="tile">7W</div>
-        <div class="tile">8W</div>
-        <div class="tile">9W</div>
+    <!-- 牌桌 -->
+    <div class="table">
+      <div class="table-inner"></div>
+    </div>
+
+    <!-- 自己 -->
+    <div class="player self">
+      <div class="tiles horizontal">
+        <div class="tile">1万</div>
+        <div class="tile">2万</div>
+        <div class="tile">3万</div>
+        <div class="tile">4万</div>
+        <div class="tile">5万</div>
+        <div class="tile">6万</div>
+        <div class="tile">7万</div>
+        <div class="tile">8万</div>
+        <div class="tile">9万</div>
         <div class="tile">东</div>
         <div class="tile">南</div>
         <div class="tile">西</div>
-        <div class="tile">北</div>
       </div>
     </div>
 
