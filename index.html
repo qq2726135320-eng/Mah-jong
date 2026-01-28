@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>Sichuan Mahjong Web</title>
+  <title>Sichuan Mahjong</title>
 
   <!-- iOS Web App -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-  <!-- 横屏 -->
+  <!-- 强制横屏 -->
   <meta name="viewport"
         content="width=device-height,height=device-width,initial-scale=1.0,user-scalable=no">
 
@@ -16,38 +16,40 @@
 </head>
 
 <body>
-  <div id="app">
+<div id="app">
 
-    <!-- 提示 -->
-    <div id="status">轮到你出牌</div>
+  <!-- 状态提示 -->
+  <div id="status">轮到你出牌</div>
 
-    <!-- 上家 -->
-    <div class="player top"><div class="tiles vertical"></div></div>
-    <!-- 左家 -->
-    <div class="player left"><div class="tiles vertical"></div></div>
-    <!-- 右家 -->
-    <div class="player right"><div class="tiles vertical"></div></div>
+  <!-- 上家 -->
+  <div class="player top"><div class="tiles vertical back-tiles"></div></div>
 
-    <!-- 牌桌 -->
-    <div class="table" id="table"></div>
+  <!-- 左家 -->
+  <div class="player left"><div class="tiles vertical back-tiles"></div></div>
 
-    <!-- 自己 -->
-    <div class="player self">
-      <div class="tiles horizontal" id="my-hand"></div>
-    </div>
+  <!-- 右家 -->
+  <div class="player right"><div class="tiles vertical back-tiles"></div></div>
 
-    <!-- 定缺 -->
-    <div id="dingque">
-      <div class="panel">
-        <h3>请选择定缺</h3>
-        <button data-type="万">万</button>
-        <button data-type="条">条</button>
-        <button data-type="筒">筒</button>
-      </div>
-    </div>
+  <!-- 牌桌 -->
+  <div id="table"></div>
 
+  <!-- 自己 -->
+  <div class="player self">
+    <div class="tiles horizontal" id="my-hand"></div>
   </div>
 
-  <script src="./js/game.js"></script>
+  <!-- 定缺 -->
+  <div id="dingque">
+    <div class="panel">
+      <h3>请选择定缺</h3>
+      <button data-type="万">万</button>
+      <button data-type="条">条</button>
+      <button data-type="筒">筒</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="./js/game.js"></script>
 </body>
 </html>
