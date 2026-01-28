@@ -49,28 +49,64 @@
     </div>
 
     <!-- 牌桌 -->
-    <div class="table">
-      <div class="table-inner"></div>
-    </div>
+    <div class="table" id="table"></div>
 
     <!-- 自己 -->
     <div class="player self">
-      <div class="tiles horizontal">
-        <div class="tile">1万</div>
-        <div class="tile">2万</div>
-        <div class="tile">3万</div>
-        <div class="tile">4万</div>
-        <div class="tile">5万</div>
-        <div class="tile">6万</div>
-        <div class="tile">7万</div>
-        <div class="tile">8万</div>
-        <div class="tile">9万</div>
-        <div class="tile">东</div>
-        <div class="tile">南</div>
-        <div class="tile">西</div>
+      <div class="tiles horizontal" id="my-hand">
+        <div class="tile hand">1万</div>
+        <div class="tile hand">2万</div>
+        <div class="tile hand">3万</div>
+        <div class="tile hand">4万</div>
+        <div class="tile hand">5万</div>
+        <div class="tile hand">6万</div>
+        <div class="tile hand">7万</div>
+        <div class="tile hand">8万</div>
+        <div class="tile hand">9万</div>
+        <div class="tile hand">东</div>
+        <div class="tile hand">南</div>
+        <div class="tile hand">西</div>
       </div>
     </div>
 
   </div>
+
+  <!-- ===== 点牌 / 出牌逻辑 ===== -->
+  <script>
+    const hand = document.getElementById('my-hand');
+    const table = document.getElementById('table');
+    let selected = null;
+
+    hand.addEventListener('click', (e) => {
+      const tile = e.target;
+      if (!tile.classList.contains('hand')) return;
+
+      // 第二次点击 → 出牌
+      if (tile === selected) {
+        playTile(tile);
+        selected = null;
+        return;
+      }
+
+      // 取消其他选中
+      document.querySelectorAll('.tile.hand').forEach(t => {
+        t.classList.remove('selected');
+      });
+
+      tile.classList.add('selected');
+      selected = tile;
+    });
+
+    function playTile(tile) {
+      tile.classList.remove('selected');
+
+      const played = tile.cloneNode(true);
+      played.classList.remove('hand');
+      played.classList.add('played');
+
+      table.appendChild(played);
+      tile.remove();
+    }
+  </script>
 </body>
 </html>
