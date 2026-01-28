@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sichuan Mahjong Web</title>
+
+  <!-- iOS Web App -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- 横屏适配 -->
+  <meta name="viewport"
+        content="width=device-height,height=device-width,initial-scale=1.0,user-scalable=no">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #0b4d3c;
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont;
+    }
+
+    #mask {
+      position: fixed;
+      inset: 0;
+      background: black;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      z-index: 10;
+    }
+
+    #game {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="mask">请横屏体验麻将游戏</div>
+
+  <div id="game">
+    🎴 麻将页面已成功加载
+  </div>
+
+  <script>
+    function check() {
+      const mask = document.getElementById("mask");
+      if (window.innerHeight > window.innerWidth) {
+        mask.style.display = "flex";
+      } else {
+        mask.style.display = "none";
+      }
+    }
+    window.addEventListener("resize", check);
+    window.addEventListener("load", check);
+  </script>
+</body>
+</html>
